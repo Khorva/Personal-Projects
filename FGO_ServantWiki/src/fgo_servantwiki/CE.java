@@ -1,6 +1,5 @@
 package fgo_servantwiki;
 
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class CE {
@@ -17,8 +16,8 @@ public class CE {
     private int cost;
     private int maxLevel;
     private int numEffects;
-    private ArrayList<Integer> buffs;
-    private ArrayList<Integer> mlbBuffs;
+    private String buffs;
+    private String mlbBuffs;
     private String description;
     
     //Constructor
@@ -26,8 +25,6 @@ public class CE {
         this.name = name;
         this.iD = iD;
         this.numEffects = numEffects;
-        buffs = new ArrayList<Integer>(numEffects);
-        mlbBuffs = new ArrayList<Integer>(numEffects);
     }
     //Setters
     public void setIllustrator(String string){
@@ -63,11 +60,11 @@ public class CE {
     public void setNumEffects(int num){
         this.numEffects = num;
     }
-    public void setBuffs(int buffs, int effect){
-        this.buffs.add(effect, buffs);
+    public void setBuffs(String buffs){
+        this.buffs = buffs;
     }
-    public void setMLBBuffs(int mlbBuffs, int effect){
-        this.mlbBuffs.add(effect, mlbBuffs);
+    public void setMLBBuffs(String mlbBuffs){
+        this.mlbBuffs= mlbBuffs;
     }
     public void setDescription(String description){
         this.description = description;
@@ -112,10 +109,10 @@ public class CE {
     public int getNumEffects(){
         return numEffects;
     }
-    public ArrayList<Integer> getBuffs(){
+    public String getBuffs(){
         return buffs;
     }
-    public ArrayList<Integer> getMLBBuffs(){
+    public String getMLBBuffs(){
         return mlbBuffs;
     }
     public String getDescription(){

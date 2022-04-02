@@ -7,8 +7,8 @@ public class FGO_ServantWiki {
         CE Tenacity = new CE("Tenacity", 1, 1);
         Tenacity.setIllustrator("");
         //Keep in mind, the filepathlocation always starts from the actual project. Atm, the filepaths start from C:\Users\kuroi\Documents\NetBeansProjects\FGO_ServantWiki
-        Tenacity.setIcon("Pictures/Icon_CE_0001.png");
-        Tenacity.setFullPicture("Pictures/Portrait_CE_0001.png");
+        Tenacity.setIcon("src/Pictures/Icon_CE_0001.png");
+        Tenacity.setFullPicture("src/Pictures/Portrait_CE_0001.png");
         Tenacity.setMinAtt(0);
         Tenacity.setMaxAtt(0);
         Tenacity.setMinHP(100);
@@ -17,8 +17,8 @@ public class FGO_ServantWiki {
         Tenacity.setCost(1);
         Tenacity.setMaxLVL(50);
         Tenacity.setNumEffects(1);
-        Tenacity.setBuffs(3, 0);
-        Tenacity.setMLBBuffs(5,0);
+        Tenacity.setBuffs("Increase your DEF by 3%");
+        Tenacity.setMLBBuffs("Increase your DEF by 5%");
         Tenacity.setDescription("That which holds sturdy. Training turns the body to rock.");
         
         database.addCE(Tenacity);
@@ -35,8 +35,8 @@ public class FGO_ServantWiki {
         
         CE Meditation = new CE("Meditation", 2, 1);
         Meditation.setIllustrator("");
-        Meditation.setIcon("Pictures/Icon_CE_0002.png");
-        Meditation.setFullPicture("Pictures/Portrait_CE_0002.png");
+        Meditation.setIcon("src/Pictures/Icon_CE_0002.png");
+        Meditation.setFullPicture("src/Pictures/Portrait_CE_0002.png");
         Meditation.setMinAtt(0);
         Meditation.setMaxAtt(0);
         Meditation.setMinHP(150);
@@ -45,8 +45,8 @@ public class FGO_ServantWiki {
         Meditation.setCost(1);
         Meditation.setMaxLVL(50);
         Meditation.setNumEffects(1);
-        Meditation.setBuffs(5, 0);
-        Meditation.setMLBBuffs(10,0);
+        Meditation.setBuffs("Increase your Debuff Resist by 5%");
+        Meditation.setMLBBuffs("Increase your DEbuff Resist by 10%");
         Meditation.setDescription("A brief, silent moment. Man comes to know his origin.");
         
         System.out.println("Illustrator = " + Meditation.getIllustrator());
@@ -65,10 +65,10 @@ public class FGO_ServantWiki {
         
         //Printing Buffs & MLBBUFFS
         for(int i = 0; i < Tenacity.getNumEffects(); i++){
-            System.out.println("Buffs = " + Tenacity.getBuffs().get(i));
+            System.out.println("Buffs = " + Tenacity.getBuffs());
         }
         for(int i = 0; i < Tenacity.getNumEffects(); i++){
-            System.out.println("MLBBuffs = " + Tenacity.getMLBBuffs().get(i));
+            System.out.println("MLBBuffs = " + Tenacity.getMLBBuffs());
         }
         System.out.println(Tenacity.getDescription());
         
