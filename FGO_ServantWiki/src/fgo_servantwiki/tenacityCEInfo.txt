@@ -11,3 +11,17 @@ NormalEffect +3% Defense
 MLBEffect	+5% Defense
 
 Description: "That which holds sturdy. Training turns the body to rock."
+CE ID#2
+name: Meditation
+Illustrator: unknown
+min/maxATT: 0/0
+min/maxhP: 150/450
+stars: 1
+Cost: 1
+Max Level 50
+
+NormalEffect +5% Debuff resistance
+MLBEffect	+10% Debuff resistance
+
+Description: "A brief, silent moment. Man comes to know his origin."
+

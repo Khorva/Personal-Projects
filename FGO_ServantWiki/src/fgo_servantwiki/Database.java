@@ -8,6 +8,9 @@ public class Database {
     public Database(){
         CEs = new ArrayList<>();
     }
+    public ArrayList<CE> getCEs(){
+        return CEs;
+    }
     public void addCE(CE ce){
         CEs.add(ce);
     }
