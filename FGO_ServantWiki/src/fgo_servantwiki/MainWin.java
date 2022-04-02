@@ -68,7 +68,6 @@ public class MainWin extends JFrame {
         scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(scrollpane);
         
-        //this.pack();
         setVisible(true);
         
     }

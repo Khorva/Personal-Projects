@@ -8,7 +8,7 @@ public class FGO_ServantWiki {
         Tenacity.setIllustrator("");
         //Keep in mind, the filepathlocation always starts from the actual project. Atm, the filepaths start from C:\Users\kuroi\Documents\NetBeansProjects\FGO_ServantWiki
         Tenacity.setIcon("Pictures/Icon_CE_0001.png");
-        Tenacity.setFullPicture("Pictures/Portrait_CE_00001.png");
+        Tenacity.setFullPicture("Pictures/Portrait_CE_0001.png");
         Tenacity.setMinAtt(0);
         Tenacity.setMaxAtt(0);
         Tenacity.setMinHP(100);
@@ -36,7 +36,7 @@ public class FGO_ServantWiki {
         CE Meditation = new CE("Meditation", 2, 1);
         Meditation.setIllustrator("");
         Meditation.setIcon("Pictures/Icon_CE_0002.png");
-        Meditation.setFullPicture("Pictures/Portrait_CE_00002.png");
+        Meditation.setFullPicture("Pictures/Portrait_CE_0002.png");
         Meditation.setMinAtt(0);
         Meditation.setMaxAtt(0);
         Meditation.setMinHP(150);
