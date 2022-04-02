@@ -20,6 +20,8 @@ import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class MainWin extends JFrame {
     private Database database;
@@ -65,14 +67,22 @@ public class MainWin extends JFrame {
         toolbar.add(panel);
         this.getContentPane().add(toolbar, BorderLayout.NORTH);
        
-        
-        //Testing Icon viewing functionality on JFrame
-        JLabel full = new JLabel(this.database.getCE(0).getFullPicture());
-        JLabel icon = new JLabel(this.database.getCE(0).getIcon());
-          
         JTable ceTable = new JTable(database.getCEs().size(),3);
         ceTable.getColumnModel().getColumn(1).setCellRenderer(new imageTableCellRenderer());
         ceTable.setRowHeight(108);
+        ceTable.getColumnModel().getColumn(0).setMaxWidth(50);
+        ceTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        ceTable.getColumnModel().getColumn(1).setMaxWidth(115);
+        ceTable.getColumnModel().getColumn(1).setMinWidth(99);
+        ceTable.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){   
+                System.out.println("clicked on table");
+                JTable target = (JTable)e.getSource();
+                int row = target.getSelectedRow();
+                int column = target.getSelectedColumn();
+                System.out.printf("Clicked on row %d and column %d\n", row, column);
+            }
+        });
         
         for(int i = 0; i < database.getCEs().size(); i++){
             for(int j = 0; j < 3; j++){
