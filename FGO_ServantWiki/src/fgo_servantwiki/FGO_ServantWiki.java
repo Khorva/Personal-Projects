@@ -6,7 +6,8 @@ public class FGO_ServantWiki {
         
         CE Tenacity = new CE("Tenacity", 1, 1);
         Tenacity.setIllustrator("");
-        //Keep in mind, the filepathlocation always starts from the actual project. Atm, the filepaths start from C:\Users\kuroi\Documents\NetBeansProjects\FGO_ServantWiki
+        //Keep in mind, the filepathlocation always starts from the actual project. Atm, the filepaths start from C:\Users\kuroi\Documents\NetBeansProjects\GitPersonal-Projects\FGO_ServantWiki
+        //Pictures are stored within "Pictures" folder within "src"
         Tenacity.setIcon("src/Pictures/Icon_CE_0001.png");
         Tenacity.setFullPicture("src/Pictures/Portrait_CE_0001.png");
         Tenacity.setMinAtt(0);
@@ -47,7 +48,7 @@ public class FGO_ServantWiki {
         Meditation.setNumEffects(1);
         Meditation.setBuffs("Increase your Debuff Resist by 5%");
         Meditation.setMLBBuffs("Increase your DEbuff Resist by 10%");
-        Meditation.setDescription("A brief, silent moment. Man comes to know his origin.");
+        Meditation.setDescription("A brief, silent moment.\n" + "Man comes to know his origin.\n");
         
         System.out.println("Illustrator = " + Meditation.getIllustrator());
         System.out.println(Meditation.getMinAtt());

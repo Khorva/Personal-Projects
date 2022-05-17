@@ -1,6 +1,7 @@
 package fgo_servantwiki;
 
 import javax.swing.ImageIcon;
+import java.lang.StringBuilder;
 
 public class CE {
     private String name;
@@ -67,7 +68,12 @@ public class CE {
         this.mlbBuffs= mlbBuffs;
     }
     public void setDescription(String description){
-        this.description = description;
+        //Adding New Line characters into the description in HTML
+        description = description.replaceAll("\n","<br>");
+        StringBuilder s = new StringBuilder("<html>");
+        s.append(description).append("</html>");
+        System.out.println(s);
+        this.description = s.toString();
     }
     //Getters
     public String getName(){

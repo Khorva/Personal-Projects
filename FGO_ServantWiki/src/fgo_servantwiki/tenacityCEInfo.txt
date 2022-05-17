@@ -11,6 +11,7 @@ NormalEffect +3% Defense
 MLBEffect	+5% Defense
 
 Description: "That which holds sturdy. Training turns the body to rock."
+
 CE ID#2
 name: Meditation
 Illustrator: unknown
@@ -25,3 +26,16 @@ MLBEffect	+10% Debuff resistance
 
 Description: "A brief, silent moment. Man comes to know his origin."
 
+CE ID#3
+Name: Technique
+Illustratior: Unknown
+min/maxAtt:100/300
+min/maxHP: 0/0
+stars: 1
+Cost:1
+max Level: 50
+
+Normal Effect Increase your Arts Card effectiveness by +3%
+MLBeffect : +5% increase in Arts Card Effectiveness
+
+Description: "Upholder of Civilization. Technology is the possibility of man."

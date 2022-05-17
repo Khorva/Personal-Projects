@@ -13,6 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JSpinner;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
        
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -34,7 +41,7 @@ public class MainWin extends JFrame {
         
         setVisible(true);
     }
-    //This is a Test Constructor; Will Delete after Sprint 1
+    //This is a Test Constructor;
     public MainWin(Database database){
         super();
         this.database = database;
@@ -62,9 +69,17 @@ public class MainWin extends JFrame {
         setJMenuBar(menubar);
         
         //Creating ToolBar
-        JPanel panel = new JPanel();
-        
+        JPanel panel = new JPanel();     
         JToolBar toolbar = new JToolBar("Database Commands");
+        
+        JButton addCE_button = new JButton("Add new CE");
+        addCE_button.addActionListener(event->onAddCEClick());
+        
+        JButton addServant_button = new JButton("Add new Servant");
+        addServant_button.addActionListener(event->onAddServantClick());
+        
+        panel.add(addCE_button);
+        panel.add(addServant_button);
         toolbar.add(panel);
         this.getContentPane().add(toolbar, BorderLayout.NORTH);
        
@@ -110,6 +125,50 @@ public class MainWin extends JFrame {
     public void onAddCEClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New CE");
+        newCE.setSize(400,800);
+        
+        newCE.setLayout(new GridBagLayout());
+        // Widget Constraints
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        constraints.insets = new Insets(2,5,2,5);
+        constraints.anchor = GridBagConstraints.LINE_START;
+        //Label Constraints
+        GridBagConstraints constraintsLabel = (GridBagConstraints) constraints.clone();
+        constraintsLabel.weightx = 0;
+        
+        //CE Name
+        JLabel name = new JLabel("Name");
+        constraintsLabel.gridx = 0;
+        constraintsLabel.gridy = 0;
+        newCE.add(name, constraintsLabel);
+        JTextField nameField = new JTextField(30);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        newCE.add(nameField, constraints);
+        //CE ID
+        JLabel id = new JLabel("ID#");
+        constraintsLabel.gridy = 1;
+        newCE.add(id, constraintsLabel);
+        SpinnerModel range = new SpinnerNumberModel(0,null,null, 1);
+        JSpinner idField = new JSpinner(range);
+        constraints.gridy = 1;
+        newCE.add(idField, constraints);
+        //CE Portrait
+        final JFileChooser fc = new JFileChooser();
+        FileFilter dbFiles = new FileNameExtensionFilter("Database files","db");
+        fc.addChoosableFileFilter(dbFiles);
+        fc.setFileFilter(dbFiles);
+        
+        newCE.setVisible(true);
+    }
+    public void onAddServantClick(){
+        JDialog newCE = new JDialog();
+        newCE.setTitle("Adding New Servant");
         
         newCE.setVisible(true);
     }
@@ -124,7 +183,7 @@ public class MainWin extends JFrame {
         constraints.gridheight = 1;
         constraints.weightx = 0;
         constraints.weighty = 0;
-        constraints.insets = new Insets(2, 5, 2, 5); // Insets(top, left, bottom, right)
+        constraints.insets = new Insets(2,5,2,5); // Insets(top, left, bottom, right)
         constraints.anchor = GridBagConstraints.LINE_START;
         //Constraints for Data
         GridBagConstraints dataConstraints = (GridBagConstraints) constraints.clone();
@@ -132,7 +191,7 @@ public class MainWin extends JFrame {
         //Constraints for FullPicture
         GridBagConstraints fullConstraints = (GridBagConstraints) constraints.clone();
         fullConstraints.gridx = 2;
-        fullConstraints.gridheight = 10;
+        fullConstraints.gridheight = 30;
         
      
         JLabel name = new JLabel("Name");
@@ -208,7 +267,8 @@ public class MainWin extends JFrame {
         JLabel desc = new JLabel("Description");
         constraints.gridy = 10;
         view.add(desc, constraints);
-        JLabel descData = new JLabel(ce.getDescription());
+        JLabel descData = new JLabel();
+        descData.setText(ce.getDescription());
         dataConstraints.gridy = 10;
         view.add(descData,dataConstraints);
         
