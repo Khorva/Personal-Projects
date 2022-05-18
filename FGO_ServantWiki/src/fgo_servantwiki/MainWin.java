@@ -158,14 +158,41 @@ public class MainWin extends JFrame {
         JSpinner idField = new JSpinner(range);
         constraints.gridy = 1;
         newCE.add(idField, constraints);
+        //CE Illustrator
+        JLabel illustrator= new JLabel("Illustrator");
+        constraintsLabel.gridy = 2;
+        newCE.add(name, constraintsLabel);
+        JTextField illustratorField = new JTextField(30);
+        constraints.gridy = 2;
+        newCE.add(illustratorField, constraints);
         //CE Portrait
-        final JFileChooser fc = new JFileChooser();
-        FileFilter dbFiles = new FileNameExtensionFilter("Database files","db");
-        fc.addChoosableFileFilter(dbFiles);
-        fc.setFileFilter(dbFiles);
+        JLabel portrait = new JLabel("Portrait");
+        constraintsLabel.gridy = 3;
+        newCE.add(portrait, constraintsLabel);
+        JTextField portraitField = new JTextField(30);
+        //Need to implement some sort of Mouse Listener
+        final JFileChooser pc = new JFileChooser();
+        FileFilter dbFiles = new FileNameExtensionFilter("PNG","png");
+        pc.addChoosableFileFilter(dbFiles);
+        pc.setFileFilter(dbFiles);
+        int result = pc.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION){
+           String portraitPath = pc.getSelectedFile().getPath();
+           portraitPath = portraitPath.substring(portraitPath.indexOf("src\\Pictures\\"));
+        }
+        //CE Icon
+        final JFileChooser ic = new JFileChooser();
+        ic.addChoosableFileFilter(dbFiles);
+        ic.setFileFilter(dbFiles);
+        result = ic.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION){
+           String iconPath = ic.getSelectedFile().getPath();
+           iconPath = iconPath.substring(iconPath.indexOf("src\\Pictures\\"));
+        }
         
         newCE.setVisible(true);
     }
+    
     public void onAddServantClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New Servant");
