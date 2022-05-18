@@ -20,6 +20,7 @@ import javax.swing.JSpinner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JTextArea;
        
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -30,6 +31,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.Insets;
+import java.awt.event.MouseListener;
 
 public class MainWin extends JFrame {
     private Database database;
@@ -125,7 +127,7 @@ public class MainWin extends JFrame {
     public void onAddCEClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New CE");
-        newCE.setSize(400,800);
+        newCE.setSize(500,800);
         
         newCE.setLayout(new GridBagLayout());
         // Widget Constraints
@@ -134,12 +136,16 @@ public class MainWin extends JFrame {
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 1;
-        constraints.weighty = 1;
+        constraints.weighty = 0;
         constraints.insets = new Insets(2,5,2,5);
+        constraints.fill = GridBagConstraints.BOTH;
         constraints.anchor = GridBagConstraints.LINE_START;
         //Label Constraints
         GridBagConstraints constraintsLabel = (GridBagConstraints) constraints.clone();
         constraintsLabel.weightx = 0;
+        // ATT/HP Panel constraints
+        GridBagConstraints constraintsPanel = (GridBagConstraints) constraints.clone();
+        constraintsPanel.insets = new Insets(0,0,0,0);
         
         //CE Name
         JLabel name = new JLabel("Name");
@@ -159,9 +165,9 @@ public class MainWin extends JFrame {
         constraints.gridy = 1;
         newCE.add(idField, constraints);
         //CE Illustrator
-        JLabel illustrator= new JLabel("Illustrator");
+        JLabel illustrator = new JLabel("Illustrator");
         constraintsLabel.gridy = 2;
-        newCE.add(name, constraintsLabel);
+        newCE.add(illustrator, constraintsLabel);
         JTextField illustratorField = new JTextField(30);
         constraints.gridy = 2;
         newCE.add(illustratorField, constraints);
@@ -169,26 +175,93 @@ public class MainWin extends JFrame {
         JLabel portrait = new JLabel("Portrait");
         constraintsLabel.gridy = 3;
         newCE.add(portrait, constraintsLabel);
-        JTextField portraitField = new JTextField(30);
-        //Need to implement some sort of Mouse Listener
-        final JFileChooser pc = new JFileChooser();
-        FileFilter dbFiles = new FileNameExtensionFilter("PNG","png");
-        pc.addChoosableFileFilter(dbFiles);
-        pc.setFileFilter(dbFiles);
-        int result = pc.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION){
-           String portraitPath = pc.getSelectedFile().getPath();
-           portraitPath = portraitPath.substring(portraitPath.indexOf("src\\Pictures\\"));
-        }
+        JTextField portraitField = new JTextField("Click here to choose a file",30);
+        constraints.gridy = 3;
+        portraitField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                portraitField.setText(fileChoose());
+            }
+        });
+       newCE.add(portraitField, constraints);
         //CE Icon
-        final JFileChooser ic = new JFileChooser();
-        ic.addChoosableFileFilter(dbFiles);
-        ic.setFileFilter(dbFiles);
-        result = ic.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION){
-           String iconPath = ic.getSelectedFile().getPath();
-           iconPath = iconPath.substring(iconPath.indexOf("src\\Pictures\\"));
-        }
+        JLabel icon = new JLabel("Icon");
+        constraintsLabel.gridy = 4;
+        newCE.add(icon, constraintsLabel);
+        JTextField iconField = new JTextField("Click here to choose a file",30);
+        constraints.gridy = 4;
+        iconField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                iconField.setText(fileChoose());
+            }
+        });
+        newCE.add(iconField, constraints);
+        // Min/Max Att
+        JLabel att = new JLabel("(Min/Max) Attack");
+        constraintsLabel.gridy = 5;
+        newCE.add(att, constraintsLabel);
+        JSpinner minAtt = new JSpinner(new SpinnerNumberModel(0,0,null, 1));
+        constraints.gridy = 5;
+        JSpinner maxAtt = new JSpinner(new SpinnerNumberModel(0,0,null, 1));
+        JPanel attSelections = new JPanel(new GridBagLayout());
+        constraintsPanel.gridx = 0;
+        attSelections.add(minAtt, constraintsPanel);
+        constraintsPanel.gridx = 1;
+        attSelections.add(new JLabel("/"),constraintsPanel);
+        constraintsPanel.gridx = 2;
+        attSelections.add(maxAtt, constraintsPanel);  
+        newCE.add(attSelections, constraints);
+        // Min/Max HP
+        JLabel hp = new JLabel("(Min/Max) HP");
+        constraintsLabel.gridy = 6;
+        newCE.add(hp, constraintsLabel);
+        JSpinner minHP = new JSpinner(new SpinnerNumberModel(0,0,null, 1));
+        constraints.gridy = 6;
+        JSpinner maxHP = new JSpinner(new SpinnerNumberModel(0,0,null, 1));
+        JPanel hpSelections = new JPanel(new GridBagLayout());
+        constraintsPanel.gridx = 0;
+        hpSelections.add(minHP, constraintsPanel);
+        constraintsPanel.gridx = 1;
+        hpSelections.add(new JLabel("/"),constraintsPanel);
+        constraintsPanel.gridx = 2;
+        hpSelections.add(maxHP, constraintsPanel);  
+        newCE.add(hpSelections, constraints);
+        // Stars(Rarity)
+        JLabel rarity = new JLabel("Rarity");
+        constraintsLabel.gridy = 7;
+        newCE.add(rarity, constraintsLabel);
+        JSpinner rarityField = new JSpinner(new SpinnerNumberModel(1,1,5,1));
+        constraints.gridy = 7;
+        newCE.add(rarityField, constraints);
+        // Cost
+        JLabel cost = new JLabel("Cost");
+        constraintsLabel.gridy = 8;
+        newCE.add(cost, constraintsLabel);
+        JSpinner costField = new JSpinner(new SpinnerNumberModel(1,1,12,1));
+        constraints.gridy = 8;
+        newCE.add(costField, constraints);
+        //Effects
+        JLabel effect = new JLabel("Effects");
+        constraintsLabel.gridy = 9;
+        newCE.add(effect, constraintsLabel);
+        JTextArea effectsText = new JTextArea();
+        constraints.gridy = 9;
+        newCE.add(effectsText, constraints);
+        //MLB Effects
+        JLabel mlbEffect = new JLabel("MLB Effects");
+        constraintsLabel.gridy = 10;
+        newCE.add(mlbEffect, constraintsLabel);
+        JTextArea mlbEffectsText = new JTextArea();
+        constraints.gridy = 10;
+        newCE.add(mlbEffectsText, constraints);
+        //Description
+        JLabel description = new JLabel("Description");
+        constraintsLabel.gridy = 11;
+        newCE.add(description, constraintsLabel);
+        JTextArea descriptionText = new JTextArea();
+        constraints.gridy = 11;
+        newCE.add(descriptionText, constraints);
         
         newCE.setVisible(true);
     }
@@ -198,6 +271,18 @@ public class MainWin extends JFrame {
         newCE.setTitle("Adding New Servant");
         
         newCE.setVisible(true);
+    }
+    public String fileChoose(){
+        final JFileChooser pc = new JFileChooser();
+        FileFilter dbFiles = new FileNameExtensionFilter("PNG","png");
+        pc.addChoosableFileFilter(dbFiles);
+        pc.setFileFilter(dbFiles);
+        int result = pc.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION){
+           String portraitPath = pc.getSelectedFile().getPath();
+           return portraitPath.substring(portraitPath.indexOf("src\\Pictures\\"));
+        }
+        return "";
     }
     public void CEview(CE ce){
         JDialog view = new JDialog(this,ce.getName());
