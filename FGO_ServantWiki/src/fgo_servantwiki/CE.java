@@ -16,16 +16,14 @@ public class CE {
     private int stars;
     private int cost;
     private int maxLevel;
-    private int numEffects;
     private String buffs;
     private String mlbBuffs;
     private String description;
     
     //Constructor
-    public CE(String name, int iD, int numEffects){
+    public CE(String name, int iD){
         this.name = name;
         this.iD = iD;
-        this.numEffects = numEffects;
     }
     //Setters
     public void setIllustrator(String string){
@@ -57,9 +55,6 @@ public class CE {
     }
     public void setMaxLVL(int maxLevel){
         this.maxLevel = maxLevel;
-    }
-    public void setNumEffects(int num){
-        this.numEffects = num;
     }
     public void setBuffs(String buffs){
         this.buffs = buffs;
@@ -111,9 +106,6 @@ public class CE {
     }
     public int getMaxLVL(){
         return maxLevel;
-    }
-    public int getNumEffects(){
-        return numEffects;
     }
     public String getBuffs(){
         return buffs;

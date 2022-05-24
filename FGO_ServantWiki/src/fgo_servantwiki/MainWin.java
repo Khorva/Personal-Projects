@@ -1,5 +1,7 @@
 package fgo_servantwiki;
 
+import java.util.Vector;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -21,6 +23,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
        
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -35,6 +39,7 @@ import java.awt.event.MouseListener;
 
 public class MainWin extends JFrame {
     private Database database;
+    private JTable data;
     
     public MainWin(String string){
         super(string);
@@ -47,6 +52,28 @@ public class MainWin extends JFrame {
     public MainWin(Database database){
         super();
         this.database = database;
+        System.out.println(this.database.getCEs().size());
+        data = new JTable(this.database.getCEs().size(),3);
+        
+        data.getColumnModel().getColumn(1).setCellRenderer(new imageTableCellRenderer());
+        data.setRowHeight(108);
+        data.getColumnModel().getColumn(0).setMaxWidth(50);
+        data.getColumnModel().getColumn(0).setPreferredWidth(50);
+        data.getColumnModel().getColumn(1).setMaxWidth(115);
+        data.getColumnModel().getColumn(1).setMinWidth(99);
+        data.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){   
+                JTable target = (JTable)e.getSource();
+                int row = target.getSelectedRow();
+                try{
+                    CEview(database.getCE(row));
+                }catch(Exception error){
+                    System.out.println(error.getMessage());
+                }
+            }
+        });
+        
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(700,200);
@@ -55,7 +82,7 @@ public class MainWin extends JFrame {
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu ce = new JMenu("CE");
-        JMenu about = new JMenu("About");
+        JMenu help = new JMenu("Help");
         JMenuItem quit = new JMenuItem("Quit");
         JMenuItem addCE = new JMenuItem("Add New CE");
         
@@ -64,7 +91,7 @@ public class MainWin extends JFrame {
         
         menubar.add(file);
         menubar.add(ce);
-        menubar.add(about);
+        menubar.add(help);
         file.add(quit);
         ce.add(addCE);
         
@@ -85,46 +112,32 @@ public class MainWin extends JFrame {
         toolbar.add(panel);
         this.getContentPane().add(toolbar, BorderLayout.NORTH);
        
-        //Creating JTable to view list of CEs within the database
-        JTable ceTable = new JTable(this.database.getCEs().size(),3);
-        ceTable.getColumnModel().getColumn(1).setCellRenderer(new imageTableCellRenderer());
-        ceTable.setRowHeight(108);
-        ceTable.getColumnModel().getColumn(0).setMaxWidth(50);
-        ceTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-        ceTable.getColumnModel().getColumn(1).setMaxWidth(115);
-        ceTable.getColumnModel().getColumn(1).setMinWidth(99);
-        ceTable.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){   
-                JTable target = (JTable)e.getSource();
-                int row = target.getSelectedRow();
-                try{
-                    CEview(database.getCE(row));
-                }catch(Exception error){
-                    System.out.println(error.getMessage());
-                }
-            }
-        });
-        
-        for(int i = 0; i < this.database.getCEs().size(); i++){
-            for(int j = 0; j < 3; j++){
-                if(j==0){ceTable.setValueAt(this.database.getCE(i).getID(),i,j);}
-                if(j==1){ceTable.setValueAt(this.database.getCE(i).getIcon(),i,j);}
-                if(j==2){ceTable.setValueAt(this.database.getCE(i).getName(),i,j);}
-            }
-        }
-        
-        JScrollPane scrollpane = new JScrollPane(ceTable);
+        //Creating JTable to view list of CEs within the database      
+        JScrollPane scrollpane = new JScrollPane(data);
         scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(scrollpane);
-        
+        updateDisplay();
+       
         setVisible(true);
         
+    }
+    public void updateDisplay(){
+        if(database.getCEs().size() != data.getRowCount()){
+            DefaultTableModel model = (DefaultTableModel) data.getModel();
+            model.addRow(new Vector(3));
+        }
+        for(int i = 0; i < this.database.getCEs().size(); i++){
+            for(int j = 0; j < 3; j++){
+                if(j==0){data.setValueAt(this.database.getCE(i).getID(),i,j);}
+                if(j==1){data.setValueAt(this.database.getCE(i).getIcon(),i,j);}
+                if(j==2){data.setValueAt(this.database.getCE(i).getName(),i,j);}
+            }
+        } 
     }
     public void onQuitClick(){
         System.exit(0);
     }
-    public void onAddCEClick(){
+    private void onAddCEClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New CE");
         newCE.setSize(500,800);
@@ -263,6 +276,44 @@ public class MainWin extends JFrame {
         constraints.gridy = 11;
         newCE.add(descriptionText, constraints);
         
+        JPanel okCancel = new JPanel();
+        
+        JButton ok = new JButton("OK");
+        ok.addActionListener(event-> {
+            try{
+                CE enteredCE = new CE(nameField.getText(),(int) idField.getValue());
+                enteredCE.setIllustrator(illustratorField.getText());
+                enteredCE.setIcon(iconField.getText());
+                enteredCE.setFullPicture(portraitField.getText());
+                enteredCE.setMinAtt((int) minAtt.getValue());
+                enteredCE.setMaxAtt((int) maxAtt.getValue());
+                enteredCE.setMinHP((int) minHP.getValue());
+                enteredCE.setMaxHP((int) maxHP.getValue());
+                enteredCE.setStars((int) rarityField.getValue());
+                enteredCE.setCost((int) costField.getValue());
+                enteredCE.setMaxLVL(50);
+                enteredCE.setBuffs(effectsText.getText());
+                enteredCE.setMLBBuffs(mlbEffectsText.getText());
+                enteredCE.setDescription(descriptionText.getText());                 
+                database.addCE(enteredCE);
+                newCE.setVisible(false);
+                updateDisplay();
+            }catch(Exception e){
+                JOptionPane error = new JOptionPane();
+                error.showMessageDialog(null,"Error occured", null, JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        okCancel.add(ok);
+        JButton cancel = new JButton("CANCEL");
+        cancel.addActionListener(event-> newCE.setVisible(false));
+        okCancel.add(cancel);
+        
+        constraints.gridy = 12;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        newCE.add(okCancel, constraints);
+        
+        newCE.pack();
         newCE.setVisible(true);
     }
     

@@ -4,7 +4,7 @@ public class FGO_ServantWiki {
     public static void main(String[] args) {    
         Database database = new Database();
         
-        CE Tenacity = new CE("Tenacity", 1, 1);
+        CE Tenacity = new CE("Tenacity", 1);
         Tenacity.setIllustrator("");
         //Keep in mind, the filepathlocation always starts from the actual project. Atm, the filepaths start from C:\Users\kuroi\Documents\NetBeansProjects\GitPersonal-Projects\FGO_ServantWiki
         //Pictures are stored within "Pictures" folder within "src"
@@ -17,13 +17,12 @@ public class FGO_ServantWiki {
         Tenacity.setStars(1);
         Tenacity.setCost(1);
         Tenacity.setMaxLVL(50);
-        Tenacity.setNumEffects(1);
         Tenacity.setBuffs("Increase your DEF by 3%");
         Tenacity.setMLBBuffs("Increase your DEF by 5%");
         Tenacity.setDescription("That which holds sturdy. Training turns the body to rock.");
         
         database.addCE(Tenacity);
-        
+        /*
         System.out.println("Illustrator = " + Tenacity.getIllustrator());
         System.out.println(Tenacity.getMinAtt());
         System.out.println(Tenacity.getMaxAtt());
@@ -32,9 +31,8 @@ public class FGO_ServantWiki {
         System.out.println(Tenacity.getStars());
         System.out.println(Tenacity.getCost());
         System.out.println(Tenacity.getMaxLVL());
-        System.out.println(Tenacity.getNumEffects());
-        
-        CE Meditation = new CE("Meditation", 2, 1);
+        */
+        CE Meditation = new CE("Meditation", 2);
         Meditation.setIllustrator("");
         Meditation.setIcon("src/Pictures/Icon_CE_0002.png");
         Meditation.setFullPicture("src/Pictures/Portrait_CE_0002.png");
@@ -45,11 +43,10 @@ public class FGO_ServantWiki {
         Meditation.setStars(1);
         Meditation.setCost(1);
         Meditation.setMaxLVL(50);
-        Meditation.setNumEffects(1);
         Meditation.setBuffs("Increase your Debuff Resist by 5%");
         Meditation.setMLBBuffs("Increase your DEbuff Resist by 10%");
         Meditation.setDescription("A brief, silent moment.\n" + "Man comes to know his origin.\n");
-        
+        /*
         System.out.println("Illustrator = " + Meditation.getIllustrator());
         System.out.println(Meditation.getMinAtt());
         System.out.println(Meditation.getMaxAtt());
@@ -58,21 +55,18 @@ public class FGO_ServantWiki {
         System.out.println(Meditation.getStars());
         System.out.println(Meditation.getCost());
         System.out.println(Meditation.getMaxLVL());
-        System.out.println(Meditation.getNumEffects());
-        
+        */
         database.addCE(Meditation);
         
         System.out.println("arraysize = " + database.getCEs().size());
         
         //Printing Buffs & MLBBUFFS
-        for(int i = 0; i < Tenacity.getNumEffects(); i++){
-            System.out.println("Buffs = " + Tenacity.getBuffs());
-        }
-        for(int i = 0; i < Tenacity.getNumEffects(); i++){
-            System.out.println("MLBBuffs = " + Tenacity.getMLBBuffs());
-        }
+        /*
+        System.out.println("Buffs = " + Tenacity.getBuffs());
+        System.out.println("MLBBuffs = " + Tenacity.getMLBBuffs());
+   
         System.out.println(Tenacity.getDescription());
-        
+        */
         new MainWin(database);
     }
     
