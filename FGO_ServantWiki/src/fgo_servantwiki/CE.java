@@ -16,8 +16,11 @@ public class CE {
     private int stars;
     private int cost;
     private int maxLevel;
+    private int numEffs;
     private String buffs;
     private String mlbBuffs;
+    private String eventBuffs;
+    private String mlbEventBuffs;
     private String description;
     
     //Constructor
@@ -56,11 +59,20 @@ public class CE {
     public void setMaxLVL(int maxLevel){
         this.maxLevel = maxLevel;
     }
+    public void setNumEffs(int numEffs){
+        this.numEffs = numEffs;
+    }
     public void setBuffs(String buffs){
         this.buffs = buffs;
     }
     public void setMLBBuffs(String mlbBuffs){
         this.mlbBuffs= mlbBuffs;
+    }
+    public void setEventBuffs(String eventBuffs){
+        this.eventBuffs = eventBuffs;
+    }
+    public void setMLBEventBuffs(String mlbEventBuffs){
+        this.mlbEventBuffs = mlbEventBuffs;
     }
     public void setDescription(String description){
         //Adding New Line characters into the description in HTML
@@ -107,11 +119,20 @@ public class CE {
     public int getMaxLVL(){
         return maxLevel;
     }
+    public int getNumEffs(){
+        return numEffs;
+    }
     public String getBuffs(){
         return buffs;
     }
     public String getMLBBuffs(){
         return mlbBuffs;
+    }
+    public String getEventBuffs(){
+        return eventBuffs;
+    }
+    public String getMLBEventBuffs(){
+        return mlbEventBuffs;
     }
     public String getDescription(){
         return description;

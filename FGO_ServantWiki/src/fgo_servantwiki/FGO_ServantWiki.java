@@ -22,16 +22,7 @@ public class FGO_ServantWiki {
         Tenacity.setDescription("That which holds sturdy. Training turns the body to rock.");
         
         database.addCE(Tenacity);
-        /*
-        System.out.println("Illustrator = " + Tenacity.getIllustrator());
-        System.out.println(Tenacity.getMinAtt());
-        System.out.println(Tenacity.getMaxAtt());
-        System.out.println(Tenacity.getMinHP());
-        System.out.println(Tenacity.getMaxHP());
-        System.out.println(Tenacity.getStars());
-        System.out.println(Tenacity.getCost());
-        System.out.println(Tenacity.getMaxLVL());
-        */
+
         CE Meditation = new CE("Meditation", 2);
         Meditation.setIllustrator("");
         Meditation.setIcon("src/Pictures/Icon_CE_0002.png");
@@ -46,27 +37,11 @@ public class FGO_ServantWiki {
         Meditation.setBuffs("Increase your Debuff Resist by 5%");
         Meditation.setMLBBuffs("Increase your DEbuff Resist by 10%");
         Meditation.setDescription("A brief, silent moment.\n" + "Man comes to know his origin.\n");
-        /*
-        System.out.println("Illustrator = " + Meditation.getIllustrator());
-        System.out.println(Meditation.getMinAtt());
-        System.out.println(Meditation.getMaxAtt());
-        System.out.println(Meditation.getMinHP());
-        System.out.println(Meditation.getMaxHP());
-        System.out.println(Meditation.getStars());
-        System.out.println(Meditation.getCost());
-        System.out.println(Meditation.getMaxLVL());
-        */
+
         database.addCE(Meditation);
         
         System.out.println("arraysize = " + database.getCEs().size());
         
-        //Printing Buffs & MLBBUFFS
-        /*
-        System.out.println("Buffs = " + Tenacity.getBuffs());
-        System.out.println("MLBBuffs = " + Tenacity.getMLBBuffs());
-   
-        System.out.println(Tenacity.getDescription());
-        */
         new MainWin(database);
     }
     

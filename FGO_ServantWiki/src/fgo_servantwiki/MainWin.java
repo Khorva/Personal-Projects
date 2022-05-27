@@ -83,17 +83,27 @@ public class MainWin extends JFrame {
         JMenu file = new JMenu("File");
         JMenu ce = new JMenu("CE");
         JMenu help = new JMenu("Help");
-        JMenuItem quit = new JMenuItem("Quit");
-        JMenuItem addCE = new JMenuItem("Add New CE");
+        JMenuItem new_ = new JMenuItem("New");
+        JMenuItem save_ = new JMenuItem("Save");
+        JMenuItem saveAs_ = new JMenuItem("Save As");
+        JMenuItem open_ = new JMenuItem("Open");
+        JMenuItem quit_ = new JMenuItem("Quit");
+        JMenuItem addCE_ = new JMenuItem("Add New CE");
         
-        quit.addActionListener(event-> onQuitClick());
-        addCE.addActionListener(event-> onAddCEClick());
+        save_.addActionListener(event-> onSaveClick());
+        saveAs_.addActionListener(event -> onSaveAsClick());
+        quit_.addActionListener(event-> onQuitClick());
+        addCE_.addActionListener(event-> onAddCEClick());
         
         menubar.add(file);
         menubar.add(ce);
         menubar.add(help);
-        file.add(quit);
-        ce.add(addCE);
+        file.add(new_);
+        file.add(save_);
+        file.add(saveAs_);
+        file.add(open_);
+        file.add(quit_);
+        ce.add(addCE_);
         
         setJMenuBar(menubar);
         
@@ -137,7 +147,7 @@ public class MainWin extends JFrame {
     public void onQuitClick(){
         System.exit(0);
     }
-    private void onAddCEClick(){
+    public void onAddCEClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New CE");
         newCE.setSize(500,800);
@@ -316,7 +326,12 @@ public class MainWin extends JFrame {
         newCE.pack();
         newCE.setVisible(true);
     }
-    
+    public void onSaveClick(){
+        
+    }
+    public void onSaveAsClick(){
+        
+    }
     public void onAddServantClick(){
         JDialog newCE = new JDialog();
         newCE.setTitle("Adding New Servant");
