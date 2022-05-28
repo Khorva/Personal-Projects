@@ -2,6 +2,10 @@ package fgo_servantwiki;
 
 import java.util.Vector;
 
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -327,7 +331,13 @@ public class MainWin extends JFrame {
         newCE.setVisible(true);
     }
     public void onSaveClick(){
-        
+        File file = new File(this.database.getFilename());
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
+            bw.write("Testing");
+            database.save(bw);
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to open " + file + '\n' + e, "Failed", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public void onSaveAsClick(){
         

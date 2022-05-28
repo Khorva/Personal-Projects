@@ -2,6 +2,8 @@ package fgo_servantwiki;
 
 import javax.swing.ImageIcon;
 import java.lang.StringBuilder;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 public class CE {
     private String name;
@@ -27,6 +29,13 @@ public class CE {
     public CE(String name, int iD){
         this.name = name;
         this.iD = iD;
+    }
+    public CE(BufferedReader br){
+        
+    }
+    
+    public void save(BufferedWriter bw){
+        
     }
     //Setters
     public void setIllustrator(String string){
