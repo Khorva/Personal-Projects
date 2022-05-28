@@ -19,7 +19,7 @@ public class FGO_ServantWiki {
         Tenacity.setMaxLVL(50);
         Tenacity.setBuffs("Increase your DEF by 3%");
         Tenacity.setMLBBuffs("Increase your DEF by 5%");
-        Tenacity.setDescription("That which holds sturdy. Training turns the body to rock.");
+        Tenacity.setDescription("That which holds sturdy.\n" + "Training turns the body to rock.");
         
         database.addCE(Tenacity);
 

@@ -44,6 +44,9 @@ import java.awt.event.MouseListener;
 public class MainWin extends JFrame {
     private Database database;
     private JTable data;
+    private String Version = "1.0";
+    private String Magic_Cookie = "☆*: .｡. o(≧▽≦)o .｡.:*☆";
+    private String File_Version = "1.0";
     
     public MainWin(String string){
         super(string);
@@ -333,7 +336,9 @@ public class MainWin extends JFrame {
     public void onSaveClick(){
         File file = new File(this.database.getFilename());
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
-            bw.write("Testing");
+            bw.write(Magic_Cookie + '\n');
+            bw.write(Version + '\n');
+            bw.write(File_Version + '\n');
             database.save(bw);
         }catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to open " + file + '\n' + e, "Failed", JOptionPane.ERROR_MESSAGE);

@@ -2,8 +2,11 @@ package fgo_servantwiki;
 
 import javax.swing.ImageIcon;
 import java.lang.StringBuilder;
+import java.lang.Integer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+
 
 public class CE {
     private String name;
@@ -33,9 +36,27 @@ public class CE {
     public CE(BufferedReader br){
         
     }
-    
-    public void save(BufferedWriter bw){
-        
+    public void save(BufferedWriter bw) throws IOException{
+        bw.write(name + '\n');
+        bw.write(Integer.toString(getID()) + '\n');
+        bw.write(illustrator + '\n');
+        bw.write(icon.toString() + '\n');
+        bw.write(fullPicture.toString() + '\n');
+        bw.write(Integer.toString(getMinAtt()) + '\n');
+        bw.write(Integer.toString(getMinHP()) + '\n');
+        bw.write(Integer.toString(getMaxAtt()) + '\n');
+        bw.write(Integer.toString(getMaxHP()) + '\n');
+        bw.write(Integer.toString(getStars()) + '\n');
+        bw.write(Integer.toString(getCost()) + '\n');
+        bw.write(Integer.toString(getMaxLVL()) + '\n');
+        bw.write(Integer.toString(getNumEffs()) + '\n');
+        bw.write(getBuffs() + '\n');
+        bw.write(getMLBBuffs() + '\n');
+        bw.write(getDescription() + '\n');
+        if(numEffs == 2){
+            bw.write(getEventBuffs() + '\n');
+            bw.write(getMLBEventBuffs() + '\n');
+        }
     }
     //Setters
     public void setIllustrator(String string){

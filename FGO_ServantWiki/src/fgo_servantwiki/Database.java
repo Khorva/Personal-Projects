@@ -26,7 +26,9 @@ public class Database {
         return CEs.get(index); 
     }
     public void save(BufferedWriter bw) throws IOException{
-        bw.write("Database writing into file....");
+        for (CE ce : CEs){
+            ce.save(bw);
+        }
     }
     public String getFilename(){
         return filename;
