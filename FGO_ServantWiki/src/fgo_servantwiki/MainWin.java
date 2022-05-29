@@ -1,10 +1,13 @@
 package fgo_servantwiki;
 
 import java.util.Vector;
+import java.util.ArrayList;
 
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -46,7 +49,6 @@ public class MainWin extends JFrame {
     private JTable data;
     private String Version = "1.0";
     private String Magic_Cookie = "☆*: .｡. o(≧▽≦)o .｡.:*☆";
-    private String File_Version = "1.0";
     
     public MainWin(String string){
         super(string);
@@ -59,7 +61,6 @@ public class MainWin extends JFrame {
     public MainWin(Database database){
         super();
         this.database = database;
-        System.out.println(this.database.getCEs().size());
         data = new JTable(this.database.getCEs().size(),3);
         
         data.getColumnModel().getColumn(1).setCellRenderer(new imageTableCellRenderer());
@@ -74,9 +75,9 @@ public class MainWin extends JFrame {
                 JTable target = (JTable)e.getSource();
                 int row = target.getSelectedRow();
                 try{
-                    CEview(database.getCE(row));
+                    CEview(getDB().getCE(row));
                 }catch(Exception error){
-                    System.out.println(error.getMessage());
+                    System.err.println(error.getMessage());
                 }
             }
         });
@@ -99,6 +100,7 @@ public class MainWin extends JFrame {
         
         save_.addActionListener(event-> onSaveClick());
         saveAs_.addActionListener(event -> onSaveAsClick());
+        open_.addActionListener(event -> onOpenClick());
         quit_.addActionListener(event-> onQuitClick());
         addCE_.addActionListener(event-> onAddCEClick());
         
@@ -139,11 +141,13 @@ public class MainWin extends JFrame {
         
     }
     public void updateDisplay(){
-        if(database.getCEs().size() != data.getRowCount()){
+        while(database.getCEs().size() != data.getRowCount()){
             DefaultTableModel model = (DefaultTableModel) data.getModel();
             model.addRow(new Vector(3));
+            System.out.println("Added new Row");
         }
-        for(int i = 0; i < this.database.getCEs().size(); i++){
+        for(int i = 0; i < database.getCEs().size(); i++){
+            System.out.println("Loading in CE");
             for(int j = 0; j < 3; j++){
                 if(j==0){data.setValueAt(this.database.getCE(i).getID(),i,j);}
                 if(j==1){data.setValueAt(this.database.getCE(i).getIcon(),i,j);}
@@ -210,7 +214,7 @@ public class MainWin extends JFrame {
         portraitField.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                portraitField.setText(fileChoose());
+                portraitField.setText(fileChoose("PNG", "png"));
             }
         });
        newCE.add(portraitField, constraints);
@@ -223,7 +227,7 @@ public class MainWin extends JFrame {
         iconField.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                iconField.setText(fileChoose());
+                iconField.setText(fileChoose("PNG", "png"));
             }
         });
         newCE.add(iconField, constraints);
@@ -338,14 +342,37 @@ public class MainWin extends JFrame {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
             bw.write(Magic_Cookie + '\n');
             bw.write(Version + '\n');
-            bw.write(File_Version + '\n');
             database.save(bw);
         }catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to open " + file + '\n' + e, "Failed", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void onSaveAsClick(){
-        
+        File file = new File(fileChoose("Database", "db"));
+        database.setFilename(file.getAbsolutePath());
+        if(!file.getAbsolutePath().endsWith(".db")){
+				file = new File(file.getAbsolutePath() + ".db");
+				database.setFilename(file.getAbsolutePath());
+			}
+			this.onSaveClick();
+    }
+    public void onOpenClick(){
+        File file = new File(fileChoose("Database", "db"));
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+				String magicCookie = br.readLine();
+				String fileVersion = br.readLine();
+				if(magicCookie.equals(Magic_Cookie) && fileVersion.equals(Version)){
+					database = new Database(br);
+					database.setFilename(file.getAbsolutePath());
+					this.setTitle("FGO Database - ");
+					this.updateDisplay();
+				}else{
+					System.out.println("Didn't pass magicCookie && fileVersion");
+				}
+			} catch (Exception e) {
+                                System.err.println(e);
+				JOptionPane.showMessageDialog(this, "Unable to open " + file + '\n' + e, "Failed", JOptionPane.ERROR_MESSAGE);
+			}
     }
     public void onAddServantClick(){
         JDialog newCE = new JDialog();
@@ -353,19 +380,23 @@ public class MainWin extends JFrame {
         
         newCE.setVisible(true);
     }
-    public String fileChoose(){
+    public String fileChoose(String s1, String s2){
         final JFileChooser pc = new JFileChooser();
-        FileFilter dbFiles = new FileNameExtensionFilter("PNG","png");
+        FileFilter dbFiles = new FileNameExtensionFilter(s1, s2);
         pc.addChoosableFileFilter(dbFiles);
         pc.setFileFilter(dbFiles);
         int result = pc.showOpenDialog(this);
         if(result == JFileChooser.APPROVE_OPTION){
            String portraitPath = pc.getSelectedFile().getPath();
-           return portraitPath.substring(portraitPath.indexOf("src\\Pictures\\"));
+           if(s1.equals("PNG") && s2.equals("png")){
+               return portraitPath.substring(portraitPath.indexOf("src\\Pictures\\"));
+           }
+           return portraitPath;
         }
         return "";
     }
     public void CEview(CE ce){
+        System.out.println("Entering CEview");
         JDialog view = new JDialog(this,ce.getName());
         view.setSize(400,800);
         view.setLayout(new GridBagLayout());
@@ -470,6 +501,10 @@ public class MainWin extends JFrame {
         
         view.pack();
         view.setVisible(true);
+    }
+    //Getters
+    public Database getDB(){
+        return database;
     }
     //Overrides the DefaultTableCellRenderer
     private class imageTableCellRenderer extends DefaultTableCellRenderer{

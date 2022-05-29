@@ -33,8 +33,27 @@ public class CE {
         this.name = name;
         this.iD = iD;
     }
-    public CE(BufferedReader br){
-        
+    public CE(BufferedReader br) throws IOException{
+        name = br.readLine();
+        iD = Integer.parseInt(br.readLine());
+        illustrator = br.readLine();
+        icon = new ImageIcon(br.readLine());
+        fullPicture = new ImageIcon(br.readLine());
+        minAtt = Integer.parseInt(br.readLine());
+        minHP = Integer.parseInt(br.readLine());
+        maxAtt = Integer.parseInt(br.readLine());
+        maxHP = Integer.parseInt(br.readLine());
+        stars = Integer.parseInt(br.readLine());
+        cost = Integer.parseInt(br.readLine());
+        maxLevel = Integer.parseInt(br.readLine());
+        numEffs = Integer.parseInt(br.readLine());
+        buffs = br.readLine();
+        mlbBuffs = br.readLine();
+        description = br.readLine();
+        if(numEffs == 2){
+            eventBuffs = br.readLine();
+            mlbEventBuffs = br.readLine();
+        }  
     }
     public void save(BufferedWriter bw) throws IOException{
         bw.write(name + '\n');

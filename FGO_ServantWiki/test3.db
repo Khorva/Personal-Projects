@@ -1,6 +1,5 @@
 ☆*: .｡. o(≧▽≦)o .｡.:*☆
 1.0
-1.0
 Tenacity
 1
 
@@ -33,3 +32,19 @@ src/Pictures/Portrait_CE_0002.png
 Increase your Debuff Resist by 5%
 Increase your DEbuff Resist by 10%
 <html>A brief, silent moment.<br>Man comes to know his origin.<br></html>
+Technique
+3
+---
+src\Pictures\Icon_CE_0003.png
+src\Pictures\Portrait_CE_0003.png
+100
+0
+300
+0
+1
+1
+50
+0
+Increase your Arts Card effectiveness by 3%
+Increase your Arts Card effectiveness by 5% [MAX]
+<html>Upholder of civilization.<br>Technology is the possibility of man.</html>

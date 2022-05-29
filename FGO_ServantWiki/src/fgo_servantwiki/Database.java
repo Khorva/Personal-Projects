@@ -13,8 +13,12 @@ public class Database {
         CEs = new ArrayList<>();
         filename = "untitled.db";
     }
-    public Database(BufferedReader br){
-        
+    public Database(BufferedReader br) throws IOException{
+      CEs = new ArrayList<CE>(); 
+      while(br.ready()){
+          CE ce = new CE(br);
+          this.addCE(ce);
+      }
     }
     public ArrayList<CE> getCEs(){
         return CEs;
