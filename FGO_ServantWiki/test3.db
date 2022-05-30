@@ -48,3 +48,51 @@ src\Pictures\Portrait_CE_0003.png
 Increase your Arts Card effectiveness by 3%
 Increase your Arts Card effectiveness by 5% [MAX]
 <html>Upholder of civilization.<br>Technology is the possibility of man.</html>
+Preemption
+4
+---
+src\Pictures\Icon_CE_0004.png
+src\Pictures\Portrait_CE_0004.png
+100
+0
+300
+0
+1
+1
+50
+0
+Increase your Quick Card effectiveness by 3%
+Increase your Quick Card effectiveness by 5% [MAX]
+<html>Always be one step ahead, or someone else will be a step ahead of you.</html>
+Destruction
+5
+---
+src\Pictures\Icon_CE_0005.png
+src\Pictures\Portrait_CE_0005.png
+100
+0
+3000
+0
+1
+1
+50
+0
+Increase your Buster Card effectiveness by 3%
+Increase your Buster Card effectiveness by 5%[MAX]
+<html>Fall to ruin, for the time of new birth comes.</html>
+Flash
+6
+---
+src\Pictures\Icon_CE_0006.png
+src\Pictures\Portrait_CE_0006.png
+150
+0
+500
+0
+2
+3
+55
+0
+Increase your Critical Strength by 5%
+Increase your Critical Strength by 10% [MAX]
+<html>an insight of an instant, fast as lightning, this slash shall split the heavens.</html>

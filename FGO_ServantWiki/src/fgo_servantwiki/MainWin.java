@@ -1,7 +1,6 @@
 package fgo_servantwiki;
 
 import java.util.Vector;
-import java.util.ArrayList;
 
 import java.io.File;
 import java.io.BufferedWriter;
@@ -312,7 +311,11 @@ public class MainWin extends JFrame {
                 enteredCE.setMaxHP((int) maxHP.getValue());
                 enteredCE.setStars((int) rarityField.getValue());
                 enteredCE.setCost((int) costField.getValue());
-                enteredCE.setMaxLVL(50);
+                if(enteredCE.getStars() == 1) enteredCE.setMaxLVL(50);
+                if(enteredCE.getStars() == 2) enteredCE.setMaxLVL(55);
+                if(enteredCE.getStars() == 3) enteredCE.setMaxLVL(60);
+                if(enteredCE.getStars() == 4) enteredCE.setMaxLVL(80);
+                if(enteredCE.getStars() == 5) enteredCE.setMaxLVL(100);
                 enteredCE.setBuffs(effectsText.getText());
                 enteredCE.setMLBBuffs(mlbEffectsText.getText());
                 enteredCE.setDescription(descriptionText.getText());                 
